@@ -56,3 +56,12 @@ npm install --force
 ```
 ng serve
 ```
+3. Login with these credentials
+- email: 
+```
+admin@admin.com
+```
+- password:
+```
+admin
+```
