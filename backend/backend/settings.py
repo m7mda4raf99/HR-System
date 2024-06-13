@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-n3ypud&ikd@v%qs^l39t3v%djn6nf-&dlc6xm!k12damityd-i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app']
 
 # Application definition
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'hr_system',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -61,6 +62,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:4200',  # Adjust this to your Angular app's URL
+    # Add more origins if needed
 ]
 
 ROOT_URLCONF = 'backend.urls'

@@ -49,7 +49,7 @@ def login(request):
 
         # Make sure that the employee belongs to the HR group
         if employee.group != 'HR':
-            return Response({'message': 'You are not allowed to login. You are not an HR Employee'})
+            return Response({'error': 'You are not allowed to login. You are not an HR Employee'}, status=status.HTTP_400_BAD_REQUEST)
 
         stored_hashed_password = employee.password.encode('utf-8')
 
@@ -77,7 +77,7 @@ def get_employees(_):
 
     serializer = EmployeeSerializer(employees, many=True)
 
-    return Response(serializer.data)
+    return Response({'employees': serializer.data})
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -87,7 +87,7 @@ def add_employee(request):
 
     if serializer.is_valid():
         
-        plain_password = serializer.validated_data.get('password')
+        plain_password = request.data.get('password')
         
         # Hash the plain password using bcrypt
         hashed_password = bcrypt.hashpw(plain_password.encode('utf-8'), bcrypt.gensalt())
@@ -144,7 +144,7 @@ def get_employee_attendances(_, pk):
     serializer = AttendanceSerializer(attendances, many=True)
     
     # Return the serialized data
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response({'attendances': serializer.data}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
