@@ -1,0 +1,114 @@
+<div class="flex items-center gap-8 justify-center min-h-screen bg-gray-100">
+
+  <div class="w-full max-w-6xl bg-white rounded-lg shadow-md p-8">
+    <div class="container mx-auto px-4 py-8">
+      <h2 class="text-2xl font-bold mb-6">Employee List</h2>
+
+      <table *ngIf="employees.length > 0; else noEmployees" class="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th class="py-2 px-4 border-b">Employee ID</th>
+            <th class="py-2 px-4 border-b">Name</th>
+            <th class="py-2 px-4 border-b">Email</th>
+            <th class="py-2 px-4 border-b">Group</th>
+            <th class="py-2 px-4 border-b">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td class="py-2 px-4 border-b">{{ employee.id }}</td>
+            <td class="py-2 px-4 border-b">
+              <ng-container *ngIf="!employee.editMode; else editModeName">
+                {{ employee.name }}
+              </ng-container>
+              <ng-template #editModeName>
+                <input class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  type="text" [(ngModel)]="employee.name">
+              </ng-template>
+            </td>
+            <td class="py-2 px-4 border-b">
+              <ng-container *ngIf="!employee.editMode; else editModeEmail">
+                {{ employee.email }}
+              </ng-container>
+              <ng-template #editModeEmail>
+                <input class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  type="email" [(ngModel)]="employee.email">
+              </ng-template>
+            </td>
+            <td class="py-2 px-4 border-b">
+              <ng-container *ngIf="!employee.editMode; else editModeGroup">
+                {{ employee.group }}
+              </ng-container>
+              <ng-template #editModeGroup>
+                <select class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  [(ngModel)]="employee.group">
+                  <option value="HR">HR</option>
+                  <option value="Normal Employee">Normal Employee</option>
+                </select>
+              </ng-template>
+            </td>
+            <td class="py-2 px-4 border-b">
+              <ng-container *ngIf="!employee.editMode; else editModeButton">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+                  (click)="toggleEditMode(employee)">Edit</button>
+              </ng-container>
+              <ng-template #editModeButton>
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
+                  (click)="editEmployee(employee)">Save</button>
+              </ng-template>
+              <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-2"
+                (click)="viewAttendance(employee)">View Attendance</button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <ng-template #noEmployees>
+        <div class="text-center py-8">
+          <p class="text-gray-500">No employees found.</p>
+        </div>
+      </ng-template>
+
+      <!-- New Employee Form -->
+      <div class="mt-14 flex flex-col items-center">
+        <h3 class="text-xl font-bold mb-4">Add New Employee</h3>
+        <form class="flex items-center gap-6" [formGroup]="newEmployeeForm" (ngSubmit)="addEmployee()">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="newName">Name</label>
+            <input class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              id="newName" formControlName="name" type="text" placeholder="Name">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="newEmail">Email</label>
+            <input class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              id="newEmail" formControlName="email" type="email" placeholder="Email">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="newPassword">Password</label>
+            <input class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              id="newPassword" formControlName="password" type="password" placeholder="Password">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="newGroup">Group</label>
+            <select class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              id="newGroup" formControlName="group">
+              <option value="HR">HR</option>
+              <option value="Normal Employee">Normal Employee</option>
+            </select>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <button
+              class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit">
+              Add Employee
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="logout()">Logout</button>
+</div>

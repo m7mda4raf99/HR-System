@@ -1,0 +1,44 @@
+<div class="flex items-center gap-8 justify-center min-h-screen bg-gray-100">
+  <div class="w-full max-w-5xl bg-white rounded-lg shadow-md p-8">
+    <div class="flex flex-col items-center container mx-auto px-4 py-8">
+      <h2 class="text-2xl font-bold mb-6 w-full">Attendance Records for Employee ID: {{ employeeId }}</h2>
+
+      <table *ngIf="attendances.length > 0; else noAttendance" class="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th class="py-2 px-4 border-b">Employee ID</th>
+            <th class="py-2 px-4 border-b">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attendance of attendances">
+            <td class="py-2 px-4 border-b">{{ attendance.employee }}</td>
+            <td class="py-2 px-4 border-b">{{ attendance.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noAttendance>
+        <div class="text-center py-8">
+          <p class="text-gray-500">No attendance records found for this employee.</p>
+        </div>
+      </ng-template>
+
+      <!-- Add Attendance Form -->
+      <div class="mt-14">
+        <h3 class="text-lg font-bold mb-4">Add New Attendance</h3>
+        <form class="flex items-center space-x-4" (ngSubmit)="addAttendance()">
+          <input class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400" type="date"
+            [(ngModel)]="newAttendanceDate" name="newAttendanceDate" required>
+          <button type="submit"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Add Attendance
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="back()">Back</button>
+</div>
