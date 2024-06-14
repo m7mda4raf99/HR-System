@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\ACER\OneDrive\Desktop\Python\backend\env"
+VIRTUAL_ENV="C:\Users\ACER\OneDrive\Desktop\HR-System\backend\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

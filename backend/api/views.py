@@ -17,29 +17,6 @@ User = get_user_model()
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
-def createUser(request):
-    serializer = EmployeeSerializer(data=request.data)
-
-    if serializer.is_valid():
-        
-        plain_password = serializer.validated_data.get('password')
-        
-        # Hash the plain password using bcrypt
-        hashed_password = bcrypt.hashpw(plain_password.encode('utf-8'), bcrypt.gensalt())
-        
-        # Replace the plain password with the hashed one
-        serializer.validated_data['password'] = hashed_password.decode('utf-8')
-                
-        # Save the employee
-        employee = Employee(**serializer.validated_data)
-        employee.save()
-
-        return Response(EmployeeSerializer(employee).data, status=status.HTTP_201_CREATED)
-    else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['POST'])
-@permission_classes([AllowAny])
 def login(request):
     email = request.data.get('email')
     password = request.data.get('password')
