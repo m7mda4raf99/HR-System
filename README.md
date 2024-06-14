@@ -3,8 +3,8 @@
 
 **Clone the Repository**
    ``` bash
-   git clone https://github.com/m7mda4raf99/HR-System
-   cd backend
+   git clone https://github.com/m7mda4raf99/HR-System.git
+   cd HR-System/backend
    ```
 ### Running locally
 1. Install virtualenv package with
@@ -14,7 +14,7 @@ pip install virtualenv
 2. Create and activate a virtual environment
 ``` bash
 python -m venv env
-./env/Scripts/activate
+env\Scripts\activate
 ```
 3. Install packages with
 ``` bash
@@ -45,7 +45,7 @@ The API documentation is available [here](https://documenter.getpostman.com/view
 **Clone the Repository**
    ``` bash
    git clone https://github.com/m7mda4raf99/HR-System
-   cd frontend
+   cd HR-System/frontend
    ```
 ### Running locally
 1. Install packages with
